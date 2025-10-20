@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="es">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Portafolio - ArteX</title><link rel="stylesheet" href="/css/style.css"></head>
+<body>
+<header><div class="logo">ATX</div><nav><a href="/">Inicio</a><a href="/servicios.html">Servicios</a><a href="/portafolio.html">Portafolio</a><a href="/contacto.html">Contacto</a></nav></header>
+<main class="container">
+  <h2>Portafolio</h2>
+
+  <section id="gallery" class="gallery">Cargando...</section>
+
+  <h3>Agregar nuevo diseño</h3>
+  <form id="uploadForm">
+    <input type="text" name="titulo" placeholder="Título" required>
+    <input type="text" name="descripcion" placeholder="Descripción" required>
+    <label>Selecciona imagen (se sube a Cloudinary)</label>
+    <input type="file" name="file" accept="image/*" required>
+    <button type="submit">Subir</button>
+  </form>
+  <p class="nota">Nota: necesitarás configurar las variables de entorno CLOUDINARY_CLOUD_NAME y CLOUDINARY_UPLOAD_PRESET o usar tu panel Cloudinary.</p>
+</main>
+<script>
+const cloudName = ""; // En Vercel pone CLOUDINARY_CLOUD_NAME en env
+const uploadPreset = ""; // En Vercel pon CLOUDINARY_UPLOAD_PRESET si usas unsigned
+
+async function loadGallery(){
+  const res = await fetch('/api/list');
+  const data = await res.json();
+  const gallery = document.getElementById('gallery');
+  if(!data || data.length===0){ gallery.innerHTML = '<p>No hay imágenes aún.</p>'; return; }
+  gallery.innerHTML = data.map(item => `
+    <div class="item">
+      <img src="${item.secure_url}" alt="${item.public_id}">
+      <h4>${item.public_id}</h4>
+    </div>
+  `).join('');
+}
+
+document.getElementById('uploadForm').addEventListener('submit', async (e)=>{
+  e.preventDefault();
+  const file = e.target.file.files[0];
+  const titulo = e.target.titulo.value;
+  const descripcion = e.target.descripcion.value;
+  if(!file){ alert('Selecciona una imagen'); return; }
+
+  const preset = uploadPreset || prompt('Introduce tu UPLOAD_PRESET (unsigned):');
+  if(!preset){ alert('No hay upload preset'); return; }
+
+  const cloud = cloudName || prompt('Introduce tu CLOUD_NAME (ej: demo):');
+  if(!cloud){ alert('No hay cloud name'); return; }
+
+  const formData = new FormData();
+  formData.append('file', file);
+  formData.append('upload_preset', preset);
+
+  const url = `https://api.cloudinary.com/v1_1/${cloud}/upload`;
+  const res = await fetch(url, { method: 'POST', body: formData });
+  const result = await res.json();
+  if(result.error){ alert('Error al subir: '+result.error.message); return; }
+  alert('Imagen subida correctamente.');
+  loadGallery();
+});
+
+loadGallery();
+</script>
+</body>
+</html>

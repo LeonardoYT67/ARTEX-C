@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="es">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Contacto - ArteX</title><link rel="stylesheet" href="/css/style.css"></head>
+<body>
+<header><div class="logo">ATX</div><nav><a href="/">Inicio</a><a href="/servicios.html">Servicios</a><a href="/portafolio.html">Portafolio</a><a href="/contacto.html">Contacto</a></nav></header>
+<main class="container">
+  <h2>Contacto</h2>
+  <form id="contactForm">
+    <input name="nombre" placeholder="Tu nombre" required>
+    <input name="email" placeholder="Tu email" type="email" required>
+    <textarea name="mensaje" placeholder="Tu mensaje" required></textarea>
+    <button type="submit">Enviar</button>
+  </form>
+</main>
+<script>
+document.getElementById('contactForm').addEventListener('submit', e=>{ e.preventDefault(); alert('Gracias, te contactaré pronto.'); });
+</script>
+</body>
+</html>

